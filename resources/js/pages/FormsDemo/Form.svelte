@@ -12,6 +12,7 @@
 
 <script lang="ts">
     import { Form, type FormSchema } from '@erag/inertia-forms-svelte';
+    import { svelteLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import CodeInput from '@/components/form-fields/CodeInput.svelte';
     import QuantityStepper from '@/components/form-fields/QuantityStepper.svelte';
@@ -40,10 +41,12 @@
      */
     const customFields = { Rating, CodeInput, QuantityStepper };
 
+    const { trans } = svelteLang();
+
     const title = $derived(
-        entry
-            ? `Edit ${label.toLowerCase()} entry`
-            : `New ${label.toLowerCase()} entry`,
+        trans(entry ? 'demo.page.edit_entry' : 'demo.page.new_entry', {
+            name: label.toLowerCase(),
+        }),
     );
 </script>
 

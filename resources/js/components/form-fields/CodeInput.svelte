@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { useTranslate } from '@erag/inertia-forms-svelte';
     import type { FieldComponentProps } from '@erag/inertia-forms-svelte';
 
     /**
@@ -71,6 +72,8 @@
             focusBox(pasted.length);
         }
     }
+
+    const t = useTranslate();
 </script>
 
 <div
@@ -85,7 +88,7 @@
             type="text"
             inputmode="numeric"
             autocomplete={index === 0 ? 'one-time-code' : 'off'}
-            aria-label={`Digit ${index + 1} of ${length}`}
+            aria-label={t('otp_digit', { number: index + 1, total: length })}
             aria-invalid={error ? true : undefined}
             value={code[index] ?? ''}
             disabled={locked}

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { svelteLang } from '@erag/lang-sync-inertia/svelte';
     import type { FieldComponentProps } from '@erag/inertia-forms-svelte';
 
     /**
@@ -40,6 +41,8 @@
             pick(event.key === 'Home' ? 1 : stars);
         }
     }
+
+    const { __, trans } = svelteLang();
 </script>
 
 <div class="flex items-center gap-3">
@@ -59,7 +62,7 @@
                 type="button"
                 role="radio"
                 aria-checked={current === star}
-                aria-label={`${star} of ${stars} stars`}
+                aria-label={trans('demo.fields.star_of', { star, stars })}
                 tabindex={star === (current || 1) ? 0 : -1}
                 disabled={locked}
                 class="rounded-md p-0.5 transition hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--erag-form-accent,#4f46e5)] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
@@ -82,6 +85,6 @@
         {/each}
     </div>
     <span class="text-sm text-zinc-500 tabular-nums dark:text-zinc-400">
-        {shown ? `${shown} / ${stars}` : 'Not rated yet'}
+        {shown ? `${shown} / ${stars}` : __('demo.fields.not_rated')}
     </span>
 </div>

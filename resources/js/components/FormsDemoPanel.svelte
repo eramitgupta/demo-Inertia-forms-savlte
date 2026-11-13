@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { svelteLang } from '@erag/lang-sync-inertia/svelte';
     import type { LinkComponentBaseProps } from '@inertiajs/core';
     import { Link } from '@inertiajs/svelte';
     import ArrowLeft from '@lucide/svelte/icons/arrow-left';
@@ -26,6 +27,8 @@
         data: Record<string, unknown> | null;
         children: Snippet;
     } = $props();
+
+    const { __, trans } = svelteLang();
 </script>
 
 <div class="grid gap-4 xl:grid-cols-[minmax(0,1fr)_22rem]">
@@ -36,18 +39,16 @@
             <div class="grid gap-1.5">
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>
-                    Defined in
-                    <code>app/Forms/{className}.php</code> and rendered with
-                    one <code>&lt;Form&gt;</code> component. Saving validates it
-                    on the server and stores it with
-                    <code>FormEntryService</code>.
+                    {trans('demo.page.panel_description', {
+                        file: `app/Forms/${className}.php`,
+                    })}
                 </CardDescription>
             </div>
             <Button variant="outline" size="sm" asChild>
                 {#snippet children(props)}
                     <Link href={toUrl(backHref)} class={props.class}>
                         <ArrowLeft class="size-4" />
-                        Back
+                        {__('demo.page.back')}
                     </Link>
                 {/snippet}
             </Button>
@@ -59,10 +60,9 @@
 
     <Card class="h-fit">
         <CardHeader>
-            <CardTitle>Stored data</CardTitle>
+            <CardTitle>{__('demo.page.stored_data')}</CardTitle>
             <CardDescription>
-                What <code>FormEntryService</code> saved in the
-                <code>form_entries</code> table. Secrets are masked.
+                {__('demo.page.stored_data_description')}
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -77,7 +77,7 @@
                 <p
                     class="rounded-md border border-dashed p-3 text-sm text-muted-foreground"
                 >
-                    Nothing saved yet. Submit the form to create an entry.
+                    {__('demo.page.nothing_saved')}
                 </p>
             {/if}
         </CardContent>

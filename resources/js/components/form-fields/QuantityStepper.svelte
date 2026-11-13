@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { svelteLang } from '@erag/lang-sync-inertia/svelte';
     import type { FieldComponentProps } from '@erag/inertia-forms-svelte';
 
     /**
@@ -32,6 +33,8 @@
     function clamp(next: number): number {
         return Math.min(max, Math.max(min, next));
     }
+
+    const { trans } = svelteLang();
 </script>
 
 <div class="flex items-center gap-3">
@@ -41,7 +44,7 @@
     >
         <button
             type="button"
-            aria-label={`Decrease ${field.label}`}
+            aria-label={trans('demo.fields.decrease', { label: field.label })}
             disabled={locked || (number ?? min) <= min}
             class={buttonClass}
             onclick={() => update(clamp((number ?? min) - step))}
@@ -66,7 +69,7 @@
         />
         <button
             type="button"
-            aria-label={`Increase ${field.label}`}
+            aria-label={trans('demo.fields.increase', { label: field.label })}
             disabled={locked || (number ?? min) >= max}
             class={buttonClass}
             onclick={() => update(clamp((number ?? min) + step))}
